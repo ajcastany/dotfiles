@@ -1,0 +1,6 @@
+#+title: Spacemacs Dot File
+
+* Initial configuration
+
+Added the tomorrow night theme.
+Added todo keywords

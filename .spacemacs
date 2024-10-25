@@ -56,11 +56,23 @@ This function should only modify configuration layer settings."
      treemacs
      csv
      (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode)
-     (python :variables  python-test-runner 'pytest)
+            c-c++-backend 'lsp-clangd
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-format-on-save t)
+     (python :variables
+             python-backend 'lsp
+             python-lsp-server 'pyright
+             python-format-on-save t
+             python-formatter 'black
+             python-test-runner 'pytest)
+     (dap :variables
+          dap-enable-mouse-support t)
+     (cmake :variables
+            cmake-enable-cmake-ide-support t)
      imenu-list
      pandoc
      themes-megapack
+     theming
      )
 
 
@@ -79,7 +91,8 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    omtose-phellack-theme)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -585,8 +598,19 @@ It should only modify the values of Spacemacs settings."
    configuration.
    Put your configuration code here, except for variables that should be set
    before packages are loaded."
+  (setq evil-insert-state-cursor '("red" box))
   ;; Binc C-x o to ace-window
   (global-set-key (kbd "C-x o") 'ace-window)
+  (with-eval-after-load 'org
+    (setq org-todo-keywords
+          '((sequence "TODO(t)" "NEXT(n)" "IN PROGRESS(i!)" "HOLD(h!)" "|" "DONE(d!)" "CANCELLED(c)")))
+    (setq org-todo-keyword-faces
+          '(("TODO" . (:foreground "#ff6c6b" :weight bold))         ;; Soft red for TODO
+            ("NEXT" . (:foreground "#51afef" :weight bold))         ;; Light blue for NEXT
+            ("IN PROGRESS" . (:foreground "#f6c177" :weight bold))      ;; Soft yellow for STARTED
+            ("HOLD" . (:foreground "#fca5a5" :weight bold))      ;; Light teal for WAITING
+            ("DONE" . (:foreground "#9ece6a" :weight bold))         ;; Light green for DONE
+            ("CANCELLED" . (:foreground "#b0bec5" :weight bold))))) ;; Light gray-blue for CANCELLED
   )
 
 
@@ -603,7 +627,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
    '(package-selected-packages
-     '(dap-mode lsp-docker bui auto-yasnippet ccls company-c-headers company-rtags company-ycmd cpp-auto-include csv-mode disaster eat esh-help eshell-prompt-extras eshell-z evil-org flycheck-pos-tip pos-tip flycheck-rtags flycheck-ycmd gendoxy gh-md git-link git-messenger git-modes git-timemachine gitignore-templates gnuplot google-c-style helm-c-yasnippet helm-company company helm-git-grep helm-ls-git helm-lsp helm-org-rifle helm-rtags htmlize lsp-origami origami lsp-treemacs lsp-ui lsp-mode markdown-toc multi-term multi-vterm xref mwim org-cliplink org-contrib org-download org-mime org-pomodoro alert log4e gntp org-present org-projectile org-project-capture org-category-capture org-rich-yank orgit-forge orgit forge yaml markdown-mode ghub closql emacsql treepy rtags shell-pop smeargle terminal-here treemacs-magit magit magit-section git-commit with-editor transient unfill vterm yasnippet-snippets yasnippet ycmd request-deferred deferred ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-demos elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line)))
+     '(dap-mode lsp-docker bui auto-yasnippet ccls company-c-headers company-rtags company-ycmd cpp-auto-include csv-mode disaster eat esh-help eshell-prompt-extras eshell-z evil-org flycheck-pos-tip pos-tip flycheck-rtags flycheck-ycmd gendoxy gh-md git-link git-messenger git-modes git-timemachine gitignore-templates gnuplot google-c-style helm-c-yasnippet helm-company company helm-git-grep helm-ls-git helm-lsp helm-org-rifle helm-rtags htmlize lsp-origami origami lsp-treemacs lsp-ui lsp-mode markdown-toc multi-term multi-vterm xref mwim org-cliplink org-contrib org-download org-mime org-pomodoro alert log4e gntp org-present org-projectile org-project-capture org-category-capture org-rich-yank orgit-forge orgit forge yaml markdown-mode ghub closql emacsql treepy rtags shell-pop smeargle terminal-here treemacs-magit magit magit-section with-editor transient unfill vterm yasnippet-snippets yasnippet ycmd request-deferred deferred ws-butler writeroom-mode winum which-key volatile-highlights vim-powerline vi-tilde-fringe uuidgen undo-tree treemacs-projectile treemacs-persp treemacs-icons-dired treemacs-evil toc-org term-cursor symon symbol-overlay string-inflection string-edit-at-point spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline space-doc restart-emacs request rainbow-delimiters quickrun popwin pcre2el password-generator paradox overseer org-superstar open-junk-file nameless multi-line macrostep lorem-ipsum link-hint inspector info+ indent-guide hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt helm-xref helm-themes helm-swoop helm-purpose helm-projectile helm-org helm-mode-manager helm-make helm-descbinds helm-comint helm-ag google-translate golden-ratio flycheck-package flycheck-elsa flx-ido fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-textobj-line evil-surround evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-evilified-state evil-escape evil-easymotion evil-collection evil-cleverparens evil-args evil-anzu eval-sexp-fu emr elisp-slime-nav elisp-demos elisp-def editorconfig dumb-jump drag-stuff dotenv-mode dired-quick-sort diminish devdocs define-word column-enforce-mode clean-aindent-mode centered-cursor-mode auto-highlight-symbol auto-compile all-the-icons aggressive-indent ace-link ace-jump-helm-line)))
   (custom-set-faces
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
