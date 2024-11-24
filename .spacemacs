@@ -46,12 +46,13 @@ This function should only modify configuration layer settings."
      lsp
      markdown
      multiple-cursors
+     go
      org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
      ;; spell-checking
-     ;; syntax-checking
+     syntax-checking
      ;; version-control
      treemacs
      csv
@@ -275,7 +276,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
-   dotspacemacs-colorize-cursor-according-to-state t
+   dotspacemacs-colorize-cursor-according-to-state nil
 
    ;; Default font or prioritized list of fonts. This setting has no effect when
    ;; running Emacs in terminal. The font set here will be used for default and
@@ -328,7 +329,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil then the last auto saved layouts are resumed automatically upon
    ;; start. (default nil)
-   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-auto-resume-layouts t
 
    ;; If non-nil, auto-generate layout name when creating new layouts. Only has
    ;; effect when using the "jump to layout by number" commands. (default nil)
@@ -581,6 +582,7 @@ It should only modify the values of Spacemacs settings."
    configuration.
    It is mostly for variables that should be set before packages are loaded.
    If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (setq evil-insert-state-cursor '("red" box))
   )
 
 
@@ -598,7 +600,8 @@ It should only modify the values of Spacemacs settings."
    configuration.
    Put your configuration code here, except for variables that should be set
    before packages are loaded."
-  (setq evil-insert-state-cursor '("red" box))
+  ;; cursor appears after the char, as in emacs:
+  (setq evil-move-cursor-back nil)
   ;; Binc C-x o to ace-window
   (global-set-key (kbd "C-x o") 'ace-window)
   (with-eval-after-load 'org
@@ -633,6 +636,10 @@ This function is called at the very end of Spacemacs initialization."
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
+   '(cursor ((t (:background "red"))))
    '(spaceline-evil-motion ((t (:inherit 'mode-line :background "#1e81b0" :foreground "#3E3D31"))))
-   '(spaceline-read-only ((t (:inherit 'mode-line :foreground "#3E3D31" :background "#eeeee4")))))
+   '(spaceline-read-only ((t (:inherit 'mode-line :foreground "#3E3D31" :background "#eeeee4"))))
+   '(spacemacs-emacs-face ((t (:inherit 'mode-line :background "SkyBlue2" :foreground "#373b41"))))
+   '(spacemacs-hybrid-face ((t (:inherit 'mode-line :background "SkyBlue2" :foreground "#373b41"))))
+   '(spacemacs-normal-face ((t (:foreground "#373b41" :background "DarkGoldenrod2" :inherit 'mode-line)))))
   )
