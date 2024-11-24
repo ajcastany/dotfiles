@@ -46,7 +46,10 @@ This function should only modify configuration layer settings."
      lsp
      markdown
      multiple-cursors
-     go
+     (go :variables
+         go-backend 'lsp
+         go-format-before-save t
+         go-use-golangci-lint t)
      org
      (shell :variables
             shell-default-height 30
