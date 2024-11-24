@@ -582,7 +582,6 @@ It should only modify the values of Spacemacs settings."
    configuration.
    It is mostly for variables that should be set before packages are loaded.
    If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  (setq evil-insert-state-cursor '("red" box))
   )
 
 
@@ -635,8 +634,7 @@ This function is called at the very end of Spacemacs initialization."
    ;; custom-set-faces was added by Custom.
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(cursor ((t (:background "red"))))
+   ;; ;; If there is more than one, they won't work right.
    '(spaceline-evil-motion ((t (:inherit 'mode-line :background "#1e81b0" :foreground "#3E3D31"))))
    '(spaceline-read-only ((t (:inherit 'mode-line :foreground "#3E3D31" :background "#eeeee4"))))
    '(spacemacs-emacs-face ((t (:inherit 'mode-line :background "SkyBlue2" :foreground "#373b41"))))
