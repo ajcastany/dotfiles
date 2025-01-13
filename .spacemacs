@@ -637,7 +637,7 @@ It should only modify the values of Spacemacs settings."
     (setq org-todo-keyword-faces
           '(("TODO" . (:foreground "#ff6c6b" :weight bold))         ;; Soft red for TODO
             ("NEXT" . (:foreground "#51afef" :weight bold))         ;; Light blue for NEXT
-            ("IN PROGRESS" . (:foreground "#f6c177" :weight bold))      ;; Soft yellow for STARTED
+            ("IN PROGRESS" . (:foreground "#e59e52" :weight bold))      ;; Soft yellow for STARTED
             ("HOLD" . (:foreground "#fca5a5" :weight bold))      ;; Light teal for WAITING
             ("DONE" . (:foreground "#9ece6a" :weight bold))         ;; Light green for DONE
             ("CANCELLED" . (:foreground "#b0bec5" :weight bold))))) ;; Light gray-blue for CANCELLED
